@@ -1,4 +1,4 @@
-package bigquery_loader
+package cloud_functions
 
 import (
 	"context"

@@ -1,13 +1,13 @@
-data "archive_file" "gcf_datastore_bigquery_loader_zip" {
+data "archive_file" "gcf_datastore_exporter_zip" {
   type = "zip"
-  source_dir = "cloud_functions/datastore-export-bigquery-loader"
-  output_path = "datastore-exporter-bigquery-loader-gcf.zip"
+  source_dir = "cloud_functions"
+  output_path = "datastore-exporter-gcf.zip"
 }
 
 resource "google_storage_bucket_object" "gcf_datastore_bigquery_loader" {
-  name = "datastore-exporter-gcf-${data.archive_file.gcf_datastore_bigquery_loader_zip.output_sha}.zip"
+  name = "datastore-exporter-gcf-${data.archive_file.gcf_datastore_exporter_zip.output_sha}.zip"
   bucket = google_storage_bucket.gcf_bucket.name
-  source = data.archive_file.gcf_datastore_bigquery_loader_zip.output_path
+  source = data.archive_file.gcf_datastore_exporter_zip.output_path
 }
 
 resource "google_pubsub_topic" "gcf_datastore_bigquery_loader_topic" {
@@ -35,12 +35,6 @@ resource "google_cloudfunctions_function" "gcf_datastore_bigquery_loader" {
   }
 }
 
-data "archive_file" "gcf_datastore_exporter_zip" {
-  type = "zip"
-  source_dir = "cloud_functions/data-exporter"
-  output_path = "datastore-exporter-gcf.zip"
-}
-
 resource "google_storage_bucket_object" "gcf_datastore_exporter" {
   name = "datastore-exporter-gcf-${data.archive_file.gcf_datastore_exporter_zip.output_sha}.zip"
   bucket = google_storage_bucket.gcf_bucket.name
@@ -55,10 +49,7 @@ resource "google_cloudfunctions_function" "gcf_datastore_exporter" {
   entry_point = "DatastoreExport"
   service_account_email = google_service_account.gcf_datastore_exporter.email
 
-  event_trigger {
-    event_type = "providers/cloud.pubsub/eventTypes/topic.publish"
-    resource = google_pubsub_topic.trigger-topic.id
-  }
+  trigger_http = true
 
   environment_variables = {
     GCP_PROJECT = var.project_id

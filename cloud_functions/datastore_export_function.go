@@ -1,4 +1,4 @@
-package data_exporter
+package cloud_functions
 
 import (
 	"cloud.google.com/go/datastore"
