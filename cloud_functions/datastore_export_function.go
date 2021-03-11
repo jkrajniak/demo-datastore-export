@@ -12,8 +12,6 @@ import (
 	"time"
 )
 
-const dateTimeFormat = "2006_01_02_15_04_05"
-
 func init() {
 	logrus.SetLevel(logrus.DebugLevel)
 	logrus.SetFormatter(&logrus.JSONFormatter{})
@@ -24,8 +22,8 @@ func init() {
 func DatastoreExport(w http.ResponseWriter, r *http.Request) {
 	logrus.Debug("DatastoreExport")
 
-	projectId := LoadEnvVarOrPanic("GCP_PROJECT")
-	outputBucket := LoadEnvVarOrPanic("OUTPUT_BUCKET")
+	projectId := LoadEnvVarOrPanic(gcpProjectEnvVarName)
+	outputBucket := LoadEnvVarOrPanic(exportOutputBucketEnvVarName)
 
 	ctx := context.Background()
 

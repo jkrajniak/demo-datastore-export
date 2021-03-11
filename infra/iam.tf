@@ -13,14 +13,6 @@ resource "google_project_iam_member" "gcf_datastore_bigquery" {
   role = each.value
   member = "serviceAccount:${google_service_account.gcf_datastore_bigquery_loader.email}"
 }
-resource "google_pubsub_topic_iam_binding" "gcf_datastore_bigquery_loader_topic" {
-  project = google_pubsub_topic.gcf_datastore_bigquery_loader_topic.project
-  topic = google_pubsub_topic.gcf_datastore_bigquery_loader_topic.name
-  role = "roles/pubsub.publisher"
-  members = [
-    "serviceAccount:${google_service_account.gcf_datastore_bigquery_loader.email}"
-  ]
-}
 resource "google_bigquery_dataset_iam_binding" "bigquery_output_dataset" {
   dataset_id = google_bigquery_dataset.bigquery_output_dataset.dataset_id
   role = "roles/bigquery.dataEditor"
