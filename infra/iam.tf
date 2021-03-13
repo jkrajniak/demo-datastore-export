@@ -7,8 +7,6 @@ resource "google_project_iam_member" "gcf_datastore_bigquery" {
     "roles/monitoring.metricWriter",
     "roles/bigquery.jobUser",
     "roles/logging.logWriter",
-    "roles/datastore.importExportAdmin",
-    "roles/datastore.viewer"
   ])
   role = each.value
   member = "serviceAccount:${google_service_account.gcf_datastore_bigquery_loader.email}"
