@@ -37,7 +37,6 @@ resource "google_service_account" "gcf_datastore_exporter" {
 resource "google_project_iam_member" "gcf_datastore_exporter" {
   for_each = toset([
     "roles/monitoring.metricWriter",
-    "roles/bigquery.jobUser",
     "roles/logging.logWriter",
     "roles/datastore.importExportAdmin",
     "roles/datastore.viewer"

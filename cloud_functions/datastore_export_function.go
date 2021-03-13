@@ -1,22 +1,22 @@
 package cloud_functions
 
 import (
-	"cloud.google.com/go/datastore"
 	"context"
 	"fmt"
-	"github.com/sirupsen/logrus"
-	"golang.org/x/oauth2/google"
-	datastoreApi "google.golang.org/api/datastore/v1beta1"
 	"net/http"
 	"strings"
 	"time"
+
+	"cloud.google.com/go/datastore"
+	"github.com/sirupsen/logrus"
+	"golang.org/x/oauth2/google"
+	datastoreApi "google.golang.org/api/datastore/v1beta1"
 )
 
 func init() {
 	logrus.SetLevel(logrus.DebugLevel)
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 }
-
 
 //DatastoreExport - export all kinds from all namespaces
 func DatastoreExport(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +28,7 @@ func DatastoreExport(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 
 	logFields := logrus.Fields{
-		"project_id": projectId,
+		"project_id":    projectId,
 		"output_bucket": outputBucket}
 
 	datastoreClient, err := datastore.NewClient(ctx, projectId)

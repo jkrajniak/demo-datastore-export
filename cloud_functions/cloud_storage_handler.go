@@ -3,10 +3,11 @@ package cloud_functions
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/nordcloud/ncerrors/errors"
 	"github.com/sirupsen/logrus"
 	bigqueryApi "google.golang.org/api/bigquery/v2"
-	"strings"
 )
 
 func init() {
@@ -17,7 +18,7 @@ func init() {
 type BucketEvent struct {
 	EventKind string `json:"kind"`
 	Name      string `json:"name"`
-	Bucket string `json:"bucket"`
+	Bucket    string `json:"bucket"`
 }
 
 func WatchBucket(ctx context.Context, event BucketEvent) error {

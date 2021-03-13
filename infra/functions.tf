@@ -26,7 +26,7 @@ resource "google_cloudfunctions_function" "gcf_datastore_exporter" {
   }
 }
 
-resource "google_cloudfunctions_function" "bucket_watch" {
+resource "google_cloudfunctions_function" "gcf_datastore_bigquery_loader" {
   name = "bigquery-importer-fn-${var.stage}"
   runtime = "go113"
   source_archive_bucket = google_storage_bucket.gcf_bucket.name
