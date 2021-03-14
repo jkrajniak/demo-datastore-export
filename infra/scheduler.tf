@@ -1,6 +1,6 @@
 resource "google_cloud_scheduler_job" "job" {
-  name = "data-sync-job-${var.stage}"
-  description = "trigger data sync"
+  name = "datastore-export-${var.stage}"
+  description = "trigger datastore export"
   schedule = "0 6 * * *"
   time_zone = "Europe/Warsaw"
 
