@@ -1,5 +1,7 @@
 # Demo datastore export to BigQuery
 
+Article: https://towardsdatascience.com/serverless-approach-to-export-datastore-to-bigquery-4156fadb8509
+
 Requirements:
  - Terraform
  - Google Cloud SDK
